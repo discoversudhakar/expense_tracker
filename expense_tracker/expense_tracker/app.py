@@ -6,6 +6,7 @@ from config import Config
 from datetime import datetime, date, timedelta
 from sqlalchemy import func, extract
 import calendar
+import os
 
 def create_app():
     app = Flask(__name__)
@@ -311,5 +312,9 @@ def monthly_data():
     
     return jsonify(monthly_data)
 
+# 🔥 CRITICAL FIX FOR RENDER DEPLOYMENT 🔥
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Get port from environment variable (Render sets this automatically)
+    port = int(os.environ.get('PORT', 10000))
+    # Bind to 0.0.0.0 so Render can detect the port
+    app.run(debug=False, host='0.0.0.0', port=port)
