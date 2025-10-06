@@ -1,0 +1,1 @@
+web: gunicorn "expense_tracker:create_app('production')"
